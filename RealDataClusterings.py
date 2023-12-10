@@ -219,7 +219,7 @@ def expClusteringComparisonRealData(to_load, dims, reduction_types, clustering_t
     
     _, aris = compute_clusterings(to_load, reduced_datasets, points_all_datasets, labels_all_datasets, num_clusters_all, clustering_types)
     
-    filename = "Result_txts/new_aris_drivface_2_10.txt"
+    filename = "Result_txts/new_aris_coil_2_5_10.txt"
     saveResults(aris, filename, 'w')
     
 
@@ -256,53 +256,50 @@ def createRealPlot(filename):
         aris_plotting_sorted.append(aris_sorted_reductionType)
     
     plt.rcParams.update({'font.size': 11})
-    fig, (ax0, ax1, ax2) = plt.subplots(3, 6, figsize=(15, 4))
+    fig, (ax0, ax1, ax2) = plt.subplots(3, 5, figsize=(15, 4))
     
-    ax0[0] = clustering_comparison_subplots(ax0[0], aris_plotting_sorted[0][0], "Euclidean")
+    ax0[0] = clustering_comparison_subplots(ax0[0], aris_plotting_sorted[0][0], "cosine")
     ax1[0] = clustering_comparison_subplots(ax1[0], aris_plotting_sorted[0][1], "")
     ax2[0] = clustering_comparison_subplots(ax2[0], aris_plotting_sorted[0][2], "")
-    ax0[1] = clustering_comparison_subplots(ax0[1], aris_plotting_sorted[1][0], "cosine")
-    ax1[1] = clustering_comparison_subplots(ax1[1], aris_plotting_sorted[1][1], "")
-    ax2[1] = clustering_comparison_subplots(ax2[1], aris_plotting_sorted[1][2], "")
-    ax0[2] = clustering_comparison_subplots(ax0[2], aris_plotting_sorted[2][0], "manhattan")
+    ax0[0] = clustering_comparison_subplots(ax0[1], aris_plotting_sorted[1][0], "manhattan")
+    ax1[0] = clustering_comparison_subplots(ax1[1], aris_plotting_sorted[1][1], "")
+    ax2[0] = clustering_comparison_subplots(ax2[1], aris_plotting_sorted[1][2], "")
+    ax0[2] = clustering_comparison_subplots(ax0[2], aris_plotting_sorted[2][0], "dc ($\mu$=1)")
     ax1[2] = clustering_comparison_subplots(ax1[2], aris_plotting_sorted[2][1], "")
     ax2[2] = clustering_comparison_subplots(ax2[2], aris_plotting_sorted[2][2], "")
-    ax0[3] = clustering_comparison_subplots(ax0[3], aris_plotting_sorted[3][0], "dc ($\mu$=1)")
+    ax0[3] = clustering_comparison_subplots(ax0[3], aris_plotting_sorted[3][0], "dc ($\mu$=5)")
     ax1[3] = clustering_comparison_subplots(ax1[3], aris_plotting_sorted[3][1], "")
     ax2[3] = clustering_comparison_subplots(ax2[3], aris_plotting_sorted[3][2], "")
-    ax0[4] = clustering_comparison_subplots(ax0[4], aris_plotting_sorted[4][0], "dc ($\mu$=5)")
+    ax0[4] = clustering_comparison_subplots(ax0[4], aris_plotting_sorted[4][0], "dc ($\mu$=10)")
     ax1[4] = clustering_comparison_subplots(ax1[4], aris_plotting_sorted[4][1], "")
     ax2[4] = clustering_comparison_subplots(ax2[4], aris_plotting_sorted[4][2], "")
-    ax0[5] = clustering_comparison_subplots(ax0[5], aris_plotting_sorted[5][0], "dc ($\mu$=10)")
-    ax1[5] = clustering_comparison_subplots(ax1[5], aris_plotting_sorted[5][1], "")
-    ax2[5] = clustering_comparison_subplots(ax2[5], aris_plotting_sorted[5][2], "")
     
-    ax2[0].set_xticks(ticks=range(len(aris_plotting_sorted)-1), labels = ["coil5", "coil", "pend", "drivf", "oliv"])
-    ax2[1].set_xticks(ticks=range(len(aris_plotting_sorted)-1), labels = ["coil5", "coil", "pend", "drivf", "oliv"])
-    ax2[2].set_xticks(ticks=range(len(aris_plotting_sorted)-1), labels = ["coil5", "coil", "pend", "drivf", "oliv"])
-    ax2[3].set_xticks(ticks=range(len(aris_plotting_sorted)-1), labels = ["coil5", "coil", "pend", "drivf", "oliv"])
-    ax2[4].set_xticks(ticks=range(len(aris_plotting_sorted)-1), labels = ["coil5", "coil", "pend", "drivf", "oliv"])
-    ax2[5].set_xticks(ticks=range(len(aris_plotting_sorted)-1), labels = ["coil5", "coil", "pend", "drivf", "oliv"])
+    ax2[0].set_xticks(ticks=range(1), labels = ["coil"])
+    ax2[1].set_xticks(ticks=range(1), labels = ["coil"])
+    ax2[2].set_xticks(ticks=range(1), labels = ["coil"])
+    ax2[3].set_xticks(ticks=range(1), labels = ["coil"])
+    ax2[4].set_xticks(ticks=range(1), labels = ["coil"])
   
-    ax0[0].set_yticks(ticks=range(len(aris_plotting_sorted[0][0])), labels = ["DBSCAN", "kMeans", "Spectral", "DCF"])
-    ax1[0].set_yticks(ticks=range(len(aris_plotting_sorted[0][0])), labels = ["DBSCAN", "kMeans", "Spectral", "DCF"])
-    ax2[0].set_yticks(ticks=range(len(aris_plotting_sorted[0][0])), labels = ["DBSCAN", "kMeans", "Spectral", "DCF"])
+    ax0[0].set_yticks(ticks=range(len(aris_plotting_sorted[0][0])), labels = ["DBSCAN", "kMeans", "DCF"])
+    ax1[0].set_yticks(ticks=range(len(aris_plotting_sorted[0][0])), labels = ["DBSCAN", "kMeans", "DCF"])
+    ax2[0].set_yticks(ticks=range(len(aris_plotting_sorted[0][0])), labels = ["DBSCAN", "kMeans", "DCF"])
     
-    ax0[5].set_ylabel("dim=2")
-    ax0[5].yaxis.set_label_position("right")
+    ax0[4].set_ylabel("dim=2")
+    ax0[4].yaxis.set_label_position("right")
     
-    ax1[5].set_ylabel("dim=10")
-    ax1[5].yaxis.set_label_position("right")
+    ax1[4].set_ylabel("dim=5")
+    ax1[4].yaxis.set_label_position("right")
     
-    ax2[5].set_ylabel("dim=min(n, d)")
-    ax2[5].yaxis.set_label_position("right")
+    ax2[4].set_ylabel("dim=10")
+    ax2[4].yaxis.set_label_position("right")
     
     plt.tight_layout(pad=0.2)
     plt.show()
         
     
 if __name__ == '__main__':
-    expClusteringComparisonRealData(['coil'], [2, 5, 10], ['cosine','manhattan','mds1', 'mds5', 'mds10'], ['dbscan', 'kmeans', 'dcf'])
+    # expClusteringComparisonRealData(['coil'], [2, 5, 10], ['cosine','manhattan','mds1', 'mds5', 'mds10'], ['dbscan', 'kmeans', 'dcf'])
+    createRealPlot("Result_txts/new_aris_coil_2_5_10.txt")
     # expClusteringComparisonRealData(['pendigits'], [2], ['mds1', 'mds5', 'mds10'], ['spectral'])
 
 

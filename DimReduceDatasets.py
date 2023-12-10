@@ -368,8 +368,8 @@ def _compute_core_distances_(X, neighbors, min_samples, working_memory):
      
     
 if __name__ == '__main__': 
-    reduceRealDataMDS(['coil'], 0, [2,5,10], 'cosine')
-    reduceRealDataMDS(['coil'], 0, [2,5,10], 'manhattan')
+    # reduceRealDataMDS(['coil'], 0, [2,5,10], 'cosine')
+    reduceRealDataMDS(['coil'], 0, [10], 'manhattan')
     # reduceRealDataMDS(['coil'], 0, [2,5,10], 'mutualReachability')
     # reduceRealDataMDS(['coil'], 10, [2,5,10], 'ours')
     # reduceRealDataMDS(['coil'], 5, [2, 10], 'ours')
