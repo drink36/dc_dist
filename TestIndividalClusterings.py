@@ -169,7 +169,7 @@ def get_good_DBSCAN_eps_with_domain_knowledge(points, minPoints, num_clusters, l
 def compute_clusterings(dataset, points_original, labels_original, num_clusters, clustering_types):
     clusterings = []
     aris = []
-    
+    # dataset: [dataset_index]# d1,d2,d3[reductiontype_index]# mds1,mds5,mds10 [dim_index]
     for dataset_index in tqdm(range(len(dataset))):
         dataset_aris = []
         for reductiontype_idex in range(len(dataset[dataset_index])):
@@ -217,8 +217,8 @@ def compute_clusterings(dataset, points_original, labels_original, num_clusters,
                     clusterings.append(dcf)
                     dimtype_aris.append(dcf_ari_gt)
                     
-                    plt.scatter(points[:, 0], points[:, 1], c=dcf.labels, cmap='Spectral')
-                    plt.show()
+                    # plt.scatter(points[:, 0], points[:, 1], c=dcf.labels, cmap='Spectral')
+                    # plt.show()
                 
                 reductiontype_aris.append(dimtype_aris)
             dataset_aris.append(reductiontype_aris)
@@ -235,8 +235,9 @@ def testClustering(to_load, dims, reduction_types, clustering_types):
     reduced_data = loadReducedSynthDatasets(to_load, dims, reduction_types)
     
     _, aris = compute_clusterings(reduced_data, points, labels, 10, clustering_types)
+
     
-    #saveResults(aris, "../Result_txts/TESTaris_synthData_spectral.txt", 'a')
+    saveResults(aris, "Result_txts/TESTaris_synthData_spectral.txt", 'w')
     
     return aris
 
@@ -270,10 +271,9 @@ def createSynthPlot(filename):
                 aris_sorted_dim.append(aris)
             aris_sorted_reductionType.append(np.array(aris_sorted_dim).T)
         aris_plotting_sorted.append(aris_sorted_reductionType)
-    
+    print(aris_plotting_sorted)
     plt.rcParams.update({'font.size': 11})
     fig, (ax0, ax1, ax2) = plt.subplots(3, 6, figsize=(15, 4))
-    
     ax0[0] = clustering_comparison_subplots(ax0[0], aris_plotting_sorted[0][0], "euclidean")
     ax1[0] = clustering_comparison_subplots(ax1[0], aris_plotting_sorted[0][1], "")
     ax2[0] = clustering_comparison_subplots(ax2[0], aris_plotting_sorted[0][2], "")
@@ -315,16 +315,48 @@ def createSynthPlot(filename):
     
     plt.tight_layout(pad=0.2)
     plt.show()
+def newcreateSynthPlot(filename):
+    all_aris = open(filename).read()
+    all_aris = ast.literal_eval(all_aris)
+    all_aris = np.array(all_aris)
+    print(all_aris)
+    aris_plotting_sorted = []
+    for dataset_index in range(0, len(all_aris)):
+        aris_sorted_reductionType = []
+        for dim_index in range(len(all_aris[0][0])):
+            aris_sorted_dim = []
+            for reductiontype_index in range(len(all_aris[0])):
+                aris = all_aris[dataset_index][reductiontype_index][dim_index]
+                aris_sorted_dim.append(aris)
+            aris_sorted_reductionType.append(np.array(aris_sorted_dim).T)
+        aris_plotting_sorted.append(aris_sorted_reductionType)
+    plt.rcParams.update({'font.size': 11})
+    fig, (ax0) = plt.subplots(1,3, figsize=(12, 4))
+    ax0[0] = clustering_comparison_subplots(ax0[0], aris_plotting_sorted[0][0], "dc($\mu$=1)")
+    ax0[1] = clustering_comparison_subplots(ax0[1], aris_plotting_sorted[1][0], "dc($\mu$=5)")
+    ax0[2] = clustering_comparison_subplots(ax0[2], aris_plotting_sorted[2][0], "dc($\mu$=10)")
+
+    ax0[0].set_xticks(ticks=range(3), labels = ["d1", "d2", "d3"])
+    ax0[1].set_xticks(ticks=range(3), labels = ["d1", "d2", "d3"])
+    ax0[2].set_xticks(ticks=range(3), labels = ["d1", "d2", "d3"])
+    
+    ax0[0].set_yticks(ticks=range(len(aris_plotting_sorted[0][0])), labels = ["DBSCAN", "kMeans", "DCF"])
+    
+    ax0[2].set_ylabel("dim=10")
+    ax0[2].yaxis.set_label_position("right")
+    plt.tight_layout(pad=0.2)
+    plt.show()
 
 
 if __name__ == '__main__':    
     data_types = ['d1', 'd2', 'd3']
     dims = [2]
     reduction_types = ['mds1','mds5', 'mds10']
-    alg_types = ['spectral']
+    alg_types = ['dbscan', 'kmeans', 'dcf']
+    newcreateSynthPlot("Result_txts/TESTaris_synthData_spectral.txt")
+    # res = testClustering(data_types, dims, reduction_types, alg_types)   
     
-    res = testClustering(data_types, dims, reduction_types, alg_types)   
-    print(res)
+    # print(res)
     
 
 
