@@ -13,12 +13,12 @@ from cluster_tree import dc_clustering
 # Show the dbscan clustering with that epsilon
 
 def distance_plot():
-    plt.rcParams.update({'font.size': 10, 'text.usetex': True})
+    plt.rcParams.update({'font.size': 10})
     fig, ax = plt.subplots(nrows=1, ncols=3)
     fig.set_figheight(6)
     fig.set_figwidth(12)
     num_points = 200
-    range_length = 25
+    range_length = 30
     star_pt_index = 50
     min_pts = 1
     k = 4
@@ -54,6 +54,7 @@ def distance_plot():
         sorted_eps[3] * 2,
         sorted_eps[3] * 3
     ]
+    print ('levels', levels)
 
     max_eps = np.max(epsilons[np.where(epsilons > 0)]) + 1e-8
     dbscan_orig = DBSCAN(eps=max_eps, min_samples=min_pts).fit(points)
@@ -84,12 +85,11 @@ def distance_plot():
     ax[0].scatter(points[star_pt_index, 1], points[star_pt_index, 0], c='r', marker='*', s=25)
     plt.colorbar(cf_plot, ax=ax[0], shrink=0.8, extend='both', location='left')
     ax[0].set_title('Distance to Star as a function of location')
-
     cf_plot = ax[1].contourf(
         X,
         Y,
         np.min(center_dists, axis=-1),
-        levels=levels,
+        levels=np.unique(levels),
         alpha=0.6
     )
     for i in range(k):
@@ -102,7 +102,7 @@ def distance_plot():
         X,
         Y,
         np.min(center_dists, axis=-1),
-        levels=levels,
+        levels=np.unique(levels),
         alpha=0.3
     )
     ax[2].set_title('DBSCAN with eps=Max(k-center epsilons)')

@@ -39,7 +39,8 @@ def get_dc_dist_matrix(points, n_neighbors, min_points=5, **kwargs):
         - max(P(x_i, x_j)) is the largest edge weight in the path
         - min(max(P(x_i, x_j))) is the smallest largest edge weight
     """
-    @numba.njit(fastmath=True, parallel=True)
+    # step1: get the distance matrix
+    @numba.njit(fastmath=True, parallel=True) # make calculation faster
     def get_dist_matrix(points, D, dim, num_points):
         for i in numba.prange(num_points):
             x = points[i]
@@ -62,8 +63,8 @@ def get_dc_dist_matrix(points, n_neighbors, min_points=5, **kwargs):
     if min_points > 1:
         if min_points > num_points:
             raise ValueError('Min points cannot exceed the size of the dataset')
+        # step2: get the reachability distance matrix (if min_points > 1)
         D = get_reach_dists(D, min_points, num_points)
-
     flat_D = np.reshape(D, [num_points * num_points])
     argsort_inds = np.argsort(flat_D)
 

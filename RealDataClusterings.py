@@ -35,7 +35,7 @@ def loadReducedRealDatasets(datatype, reduction_types, dims):
     if 'pca' in reduction_types: 
         embeddings_pca = []
         for dim in dims:
-            filename = "../reducedRealDatasets/"+str(datatype)+"/pca_"+str(dim)+"_"+str(datatype)+".txt"
+            filename = "reducedRealDatasets/"+str(datatype)+"/pca_"+str(dim)+"_"+str(datatype)+".txt"
             pca = open(filename).read()
             pca = ast.literal_eval(pca)
             pca = np.array(pca)
@@ -45,7 +45,7 @@ def loadReducedRealDatasets(datatype, reduction_types, dims):
     if 'tsne' in reduction_types: 
         embeddings_tsne = []
         for dim in dims:
-            filename = "../reducedRealDatasets/"+str(datatype)+"/tsne_"+str(dim)+"_"+str(datatype)+".txt"
+            filename = "reducedRealDatasets/"+str(datatype)+"/tsne_"+str(dim)+"_"+str(datatype)+".txt"
             tsne = open(filename).read()
             tsne = ast.literal_eval(tsne)
             tsne = np.array(tsne)
@@ -55,7 +55,7 @@ def loadReducedRealDatasets(datatype, reduction_types, dims):
     if 'umap' in reduction_types:
         embeddings_umap = []
         for dim in dims:
-            filename = "../reducedRealDatasets/"+str(datatype)+"/umap_"+str(dim)+"_"+str(datatype)+".txt"
+            filename = "reducedRealDatasets/"+str(datatype)+"/umap_"+str(dim)+"_"+str(datatype)+".txt"
             umap = open(filename).read()
             umap = ast.literal_eval(umap)
             umap = np.array(umap)
@@ -65,7 +65,7 @@ def loadReducedRealDatasets(datatype, reduction_types, dims):
     if 'cosine' in reduction_types: 
         embeddings_cosine = []
         for dim in dims:
-            filename = "../reducedRealDatasets/"+str(datatype)+"/mds_cosine_"+str(dim)+"_0_"+str(datatype)+".txt"
+            filename = "reducedRealDatasets/"+str(datatype)+"/mds_cosine_"+str(dim)+"_0_"+str(datatype)+".txt"
             cosine = open(filename).read()
             cosine = ast.literal_eval(cosine)
             cosine = np.array(cosine)
@@ -75,7 +75,7 @@ def loadReducedRealDatasets(datatype, reduction_types, dims):
     if 'manhattan' in reduction_types: 
         embeddings_manhattan = []
         for dim in dims:
-            filename = "../reducedRealDatasets/"+str(datatype)+"/mds_manhattan_"+str(dim)+"_0_"+str(datatype)+".txt"
+            filename = "reducedRealDatasets/"+str(datatype)+"/mds_manhattan_"+str(dim)+"_0_"+str(datatype)+".txt"
             manhattan = open(filename).read()
             manhattan = ast.literal_eval(manhattan)
             manhattan = np.array(manhattan)
@@ -85,7 +85,7 @@ def loadReducedRealDatasets(datatype, reduction_types, dims):
     if 'mds1' in reduction_types:
         embeddings_mds1 = []
         for dim in dims:
-            filename = "../reducedRealDatasets/"+str(datatype)+"/mds_ours_"+str(dim)+"_1_"+str(datatype)+".txt"
+            filename = "reducedRealDatasets/"+str(datatype)+"/mds_ours_"+str(dim)+"_1_"+str(datatype)+".txt"
             #filename = "../reducedRealDatasets/mds_ours_2_1_coil20.txt"
             mds1 = open(filename).read()
             mds1 = ast.literal_eval(mds1)
@@ -96,7 +96,7 @@ def loadReducedRealDatasets(datatype, reduction_types, dims):
     if 'mds5' in reduction_types:
         embeddings_mds5 = []
         for dim in dims:
-            filename = "../reducedRealDatasets/"+str(datatype)+"/mds_ours_"+str(dim)+"_5_"+str(datatype)+".txt"
+            filename = "reducedRealDatasets/"+str(datatype)+"/mds_ours_"+str(dim)+"_5_"+str(datatype)+".txt"
             mds5 = open(filename).read()
             mds5 = ast.literal_eval(mds5)
             mds5 = np.array(mds5)
@@ -106,7 +106,7 @@ def loadReducedRealDatasets(datatype, reduction_types, dims):
     if 'mds10' in reduction_types:
         embeddings_mds10 = []
         for dim in dims:
-            filename = "../reducedRealDatasets/"+str(datatype)+"/mds_ours_"+str(dim)+"_10_"+str(datatype)+".txt"
+            filename = "reducedRealDatasets/"+str(datatype)+"/mds_ours_"+str(dim)+"_10_"+str(datatype)+".txt"
             mds10 = open(filename).read()
             mds10 = ast.literal_eval(mds10)
             mds10 = np.array(mds10)
@@ -193,9 +193,7 @@ def compute_clusterings(to_load, dataset, points_original, labels_original, num_
                     
                 reductiontype_aris.append(dimtype_aris)
             dataset_aris.append(reductiontype_aris)
-            
-            print(dataset_aris)
-            
+                        
         aris.append(dataset_aris)
        
     return clusterings, aris
@@ -221,8 +219,8 @@ def expClusteringComparisonRealData(to_load, dims, reduction_types, clustering_t
     
     _, aris = compute_clusterings(to_load, reduced_datasets, points_all_datasets, labels_all_datasets, num_clusters_all, clustering_types)
     
-    filename = "../Result_txts/new_aris_drivface_2_10.txt"
-    #saveResults(aris, filename, 'w')
+    filename = "Result_txts/new_aris_drivface_2_10.txt"
+    saveResults(aris, filename, 'w')
     
 
 def clustering_comparison_subplots(ax, aris, title):
@@ -304,8 +302,8 @@ def createRealPlot(filename):
         
     
 if __name__ == '__main__':
-    expClusteringComparisonRealData(['coil'], [2, 10], ['mds1', 'mds5', 'mds10'], ['spectral'])
-    expClusteringComparisonRealData(['pendigits'], [2], ['mds1', 'mds5', 'mds10'], ['spectral'])
+    expClusteringComparisonRealData(['coil'], [2, 5, 10], ['cosine','manhattan','mds1', 'mds5', 'mds10'], ['dbscan', 'kmeans', 'dcf'])
+    # expClusteringComparisonRealData(['pendigits'], [2], ['mds1', 'mds5', 'mds10'], ['spectral'])
 
 
 

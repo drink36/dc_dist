@@ -363,7 +363,8 @@ def run(args):
          filename = filename + "vardensity_"
     if num_con > 0:
          filename = filename + "connected_" + str(num_con) + "_" + str(den_con) + "_" + str(len_con) + "_"
-    filename = filename + str(seed) + ".npy"
+    # add noise(I'm not sure if this is the right way to do it)
+    filename = filename + str(num_noise) + "_"+ str(seed) + ".npy"
     np.save(os.path.join(path, filename), synthdata)
     
     

@@ -8,7 +8,7 @@ from experiment_utils.get_data import get_dataset, make_circles
 from DBSCAN import DBSCAN
 from density_tree import make_tree
 from cluster_tree import dc_clustering
-
+plt.rcParams['text.usetex'] = False
 def k_vs_eps(points, labels):
     min_pts_list = [1, 3, 5, 7, 9]
     k_list = [2, 4, 6, 8, 10]
@@ -16,7 +16,7 @@ def k_vs_eps(points, labels):
     nmi_vals = np.zeros((len(min_pts_list), len(k_list)))
     nmi_size_scalar = 2000
     sc = []
-    plt.rcParams.update({'text.usetex': True, 'font.size': 14})
+    # plt.rcParams.update({'text.usetex': True, 'font.size': 14})
     colors = ['turquoise', 'cyan', 'skyblue', 'slateblue', 'navy']
     for i, min_pts in tqdm(enumerate(min_pts_list), total=len(min_pts_list)):
         root, _ = make_tree(
@@ -83,3 +83,6 @@ def k_vs_eps(points, labels):
 if __name__ == '__main__':
     g_points, g_labels = get_dataset('coil', class_list=np.arange(21, 31), points_per_class=36)
     k_vs_eps(g_points, g_labels)
+    # # make concentric circles
+    # points, labels = make_circles(n_samples=500,noise=0.01,radii=[0.5, 1.0],thicknesses=[0.1, 0.1])
+    # k_vs_eps(points, labels)

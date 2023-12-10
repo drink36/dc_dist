@@ -3,7 +3,7 @@
 
 import numpy as np
 import pandas as pd
-import imageio
+import imageio.v2 as imageio
 import glob
 
 from sklearn.utils import gen_batches, get_chunk_n_rows
@@ -319,10 +319,16 @@ def calcReductionRealMDS(to_load, points_all_datasets, minPoints, dims, distance
                 
                 core_distances = np.maximum(core_distances_1, core_distances_2)
                 distance_matrix = np.maximum(core_distances, euclidean)
-                
-            reducedData = MDS(n_components=dim).fit_transform(distance_matrix)
-        
-            filename = "../reducedRealDatasets/"+str(dataType)+"/mds_"+str(distance_metric)+"_"+str(dim)+"_"+str(minPoints)+"_"+str(dataType)+".txt"
+            print(distance_matrix)
+            # save distance matrix
+            filename = "reducedRealDatasets/"+str(dataType)+"/distance_matrix_"+str(distance_metric)+"_"+str(dim)+"_"+str(minPoints)+"_"+str(dataType)+".txt"
+            # # if filename don't exist, create it
+            # with open(filename, 'w') as f:
+            #     f.write(str(distance_matrix.tolist()))
+            reducedData = MDS(n_components=dim,dissimilarity='precomputed',eps=1e-5,max_iter=300,n_jobs=8)
+            reducedData = reducedData.fit_transform(distance_matrix)
+            print('reducedData done')
+            filename = "reducedRealDatasets/"+str(dataType)+"/mds_"+str(distance_metric)+"_"+str(dim)+"_"+str(minPoints)+"_"+str(dataType)+".txt"
             #filename = "../reducedRealDatasets/mds_ours_"+str(dim)+"_"+str(minPoints)+"_"+str(dataType)+".txt"
             with open(filename, 'w') as f:
                 f.write(str(reducedData.tolist()))    
@@ -362,5 +368,9 @@ def _compute_core_distances_(X, neighbors, min_samples, working_memory):
      
     
 if __name__ == '__main__': 
-    #reduceRealDataMDS(['pendigits', 'coil'], 5, [2, 10], 'mutualReachability')
-    reduceSynthData(5, [2, 10], 'mutualReachability')
+    reduceRealDataMDS(['coil'], 0, [2,5,10], 'cosine')
+    reduceRealDataMDS(['coil'], 0, [2,5,10], 'manhattan')
+    # reduceRealDataMDS(['coil'], 0, [2,5,10], 'mutualReachability')
+    # reduceRealDataMDS(['coil'], 10, [2,5,10], 'ours')
+    # reduceRealDataMDS(['coil'], 5, [2, 10], 'ours')
+    # reduceSynthData(5, [2, 10], 'mutualReachability')

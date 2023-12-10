@@ -4,7 +4,8 @@ import matplotlib.pyplot as plt
 from distance_metric import get_dc_dist_matrix
 
 def eval_noise():
-    plt.rcParams.update({'text.usetex': True, 'font.size': 18})
+    # plt.rcParams.update({'text.usetex': True, 'font.size': 18})
+    plt.rcParams.update({'font.size': 18})
     class_size = 300
     mu_list = [1, 3, 5, 7, 9]
     num_iterations = 10

@@ -55,7 +55,6 @@ if __name__ == '__main__':
     # )
     # points, labels = get_dataset('mnist', num_classes=10, points_per_class=50)
     points, labels = make_moons(n_samples=400, noise=0.1)
-
     root, dc_dists = make_tree(
         points,
         labels,
@@ -63,14 +62,12 @@ if __name__ == '__main__':
         make_image=args.plot_tree,
         n_neighbors=args.n_neighbors
     )
-
     pred_labels, centers, epsilons = dc_clustering(
         root,
         num_points=len(labels),
         k=args.k,
         min_points=args.min_pts,
     )
-
     # Change the eps by a tiny amount so that that distance is included in the DBSCAN cuts
     eps = np.max(epsilons[np.where(epsilons > 0)]) + 1e-8
 
@@ -80,7 +77,6 @@ if __name__ == '__main__':
 
     dbscan_core_pt_inds = np.where(dbscan_orig.labels_ > -1)
     dc_core_pt_inds = np.where(np.logical_and(pred_labels > -1, dbscan_orig.labels_ > -1))
-
     # Ultrametric Spectral Clustering
     no_lambdas = get_lambdas(root, eps)
     dsnenns = get_dc_dist_matrix(points, args.n_neighbors, min_points=args.min_pts)
@@ -95,7 +91,6 @@ if __name__ == '__main__':
         n_clusters=args.k,
         type_="it"
     )
-
     print('Epsilon values per clusters', epsilons)
     print('NMI spectral vs. k-center:', nmi(sc_labels, pred_labels))
     print('NMI spectral vs. DBSCAN*:', nmi(sc_labels, dbscan_orig.labels_))

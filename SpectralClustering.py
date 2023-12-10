@@ -408,20 +408,24 @@ if __name__ == '__main__':
 
     # Get distance mx and tree representation
     dsnenns = get_dc_dist_matrix(X, 2, min_points=2)
-    dsnedist = np.reshape(dsnenns['_all_dists'], -1)
-    dist_dsne = dsnenns['_all_dists']
+    print("dsnenns: ", dsnenns)
+    # dsnedist = np.reshape(dsnenns['_all_dists'], -1)
+    # dist_dsne = dsnenns['_all_dists']
+    dsnedist = np.reshape(dsnenns, -1)
+    dist_dsne = dsnenns
     root_, dc_dist = make_tree(X, y_true, min_points=2, n_neighbors=2)
 
     # Execute DBSCAN
     eps = 0.408
-    min_samples = 2
-    dbscan = DBSCAN(eps=eps, min_pts=min_samples, cluster_type='standard')
-    dbscan.fit(X)
-    dbscan.plot2D(y_true)
+    # min_samples = 2
+    # dbscan = DBSCAN(eps=eps, min_pts=min_samples, cluster_type='standard')
+    # dbscan.fit(X)
+    # dbscan.plot2D(y_true)
 
     # Execute Spectral Clustering
     no_lambdas = get_lambdas(root_, eps)
     print("number of lambdas: ", no_lambdas)
     sim = get_sim_mx(dsnenns)
     sc_, sc_labels = run_spectral_clustering(root_, sim, dist_dsne, eps=eps, it=no_lambdas, min_pts=2, n_clusters=8, type_="it")
+    print("sc_labels: ", sc_labels)
     plot_one_it(sc_labels)

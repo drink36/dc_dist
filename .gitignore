@@ -30,6 +30,8 @@ cython_dim_reduction.egg-info/
 gidr_dun/numba_optimizers/__pycache__/
 umap/.DS_Store
 umap/Images
+reducedRealDatasets/
+reducedSynthDatasets/
 build/
 .DS_Store
 *.so
