@@ -19,9 +19,13 @@ into the path `data/coil-100`.
 Feel free to email if you have any questions -- draganovandrew@cs.au.dk
 
 Change from drink36(YU)
+
 Some experiment report at [here](https://hackmd.io/VqRnOvy6TZOZLfMs1GwdhA)
 Some experiment scripts are then located in 
 - `TestIndividalClusterings.py` fig(6) in essay
 - `RealDataClusterings.py` fig(6) in essay
+
 I have changed the plot function in these two functions. If you add more datasets, you might need to change it.
-More data for `RealDataClusterings.py` and `TestIndividalClusterings.py` after generate at [here](https://drive.google.com/drive/folders/1Dl4O_RMQRdS8ZzK4wzJjzX4APnRykDNW?usp=drive_link) and [here](https://drive.google.com/drive/folders/1vwBz9zoKR_zxGbajncxDQ9ZRg_El1pl2?usp=drive_link). You can also find `data/synth` at [here](https://drive.google.com/drive/folders/1RpShN-3fgjeCI1QN1PuFRbmslunR7lzv?usp=drive_link) 
+
+More data for `RealDataClusterings.py` and `TestIndividalClusterings.py` after generate at [here](https://drive.google.com/drive/folders/1Dl4O_RMQRdS8ZzK4wzJjzX4APnRykDNW?usp=drive_link) and [here](https://drive.google.com/drive/folders/1vwBz9zoKR_zxGbajncxDQ9ZRg_El1pl2?usp=drive_link). 
+You can also find `data/synth` at [here](https://drive.google.com/drive/folders/1RpShN-3fgjeCI1QN1PuFRbmslunR7lzv?usp=drive_link) 
