@@ -28,5 +28,6 @@ Some experiment scripts are then located in
 I have changed the plot function in these two functions. If you add more datasets, you might need to change it.
 
 More data for `RealDataClusterings.py` and `TestIndividalClusterings.py` after generate at [here](https://drive.google.com/drive/folders/1Dl4O_RMQRdS8ZzK4wzJjzX4APnRykDNW?usp=drive_link) and [here](https://drive.google.com/drive/folders/1vwBz9zoKR_zxGbajncxDQ9ZRg_El1pl2?usp=drive_link). 
-You can also find `data/synth` at [here](https://drive.google.com/drive/folders/1RpShN-3fgjeCI1QN1PuFRbmslunR7lzv?usp=drive_link) 
+You can also find `data/synth` at [here](https://drive.google.com/drive/folders/1RpShN-3fgjeCI1QN1PuFRbmslunR7lzv?usp=drive_link).W
+
 To run our data, please run `testcompare.py`, you can change dataset and other hyperparameter by yourself.
