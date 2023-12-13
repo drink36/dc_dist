@@ -14,7 +14,6 @@ from distance_metric import get_dc_dist_matrix
 from density_tree import make_tree
 from tree_plotting import plot_embedding
 from cluster_tree import dc_clustering
-from GDR import GradientDR
 from SpectralClustering import get_lambdas, get_sim_mx, run_spectral_clustering
 
 if __name__ == '__main__':

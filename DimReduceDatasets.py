@@ -18,7 +18,7 @@ from distance_metric import get_dc_dist_matrix
 from sklearn.metrics.pairwise import euclidean_distances, cosine_distances, manhattan_distances
 from sklearn.cluster import OPTICS
 
-from GDR import GradientDR
+
 
 
 """ synthetic datasets """             
@@ -35,8 +35,8 @@ def loadSynthDatasets():
     #points_b2, labels_b2 = make_blobs(n_samples=cluster_numbers_blobs_unbalanced, centers=None, n_features=50, random_state=1)
 
     # load unbalanced blobs with uniforn noise (b3)  
-    dataset_blobs_unbalanced_noise = np.load("./data/synth/blobs_unbalanced_noise.npy")
-    points_b3 = dataset_blobs_unbalanced_noise[:, :-1]
+    # dataset_blobs_unbalanced_noise = np.load("./data/synth/blobs_unbalanced_noise.npy")
+    # points_b3 = dataset_blobs_unbalanced_noise[:, :-1]
      
     # load density dataset with same density (d1)
     dataset_same_dens = np.load("./data/synth/synth_data_10000_10_50_0_0.npy")
@@ -51,7 +51,7 @@ def loadSynthDatasets():
     points_d3 = dataset_diff_dens_noise[:, :-1]
     
     #points = [points_b1, points_b2, points_b3, points_d1, points_d2, points_d3]
-    points = [points_b3, points_d1, points_d2, points_d3]
+    points = [ points_d1, points_d2, points_d3]
     
     return points  
   
@@ -84,7 +84,6 @@ def calcReductionSynth(minPoints, points_all_datasets, dim, distance_metric):
                 dataType = 'b'
             else:
                 dataType = 'd'
-        
             filename = "../reducedSynthDatasets/"+str(distance_metric)+"_"+str(dim[i])+"_"+str(minPoints)+"_"+str(dataType)+str((j%3)+1)+".txt"
             with open(filename, 'w') as f:
                 f.write(str(reducedData.tolist()))
@@ -369,8 +368,8 @@ def _compute_core_distances_(X, neighbors, min_samples, working_memory):
     
 if __name__ == '__main__': 
     # reduceRealDataMDS(['coil'], 0, [2,5,10], 'cosine')
-    reduceRealDataMDS(['coil'], 0, [10], 'manhattan')
+    # reduceRealDataMDS(['coil'], 0, [10], 'manhattan')
     # reduceRealDataMDS(['coil'], 0, [2,5,10], 'mutualReachability')
     # reduceRealDataMDS(['coil'], 10, [2,5,10], 'ours')
     # reduceRealDataMDS(['coil'], 5, [2, 10], 'ours')
-    # reduceSynthData(5, [2, 10], 'mutualReachability')
+    reduceSynthData(5, [2, 10], 'manhattan')

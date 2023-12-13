@@ -283,26 +283,26 @@ def createSynthPlot(filename):
     ax0[2] = clustering_comparison_subplots(ax0[2], aris_plotting_sorted[2][0], "UMAP")
     ax1[2] = clustering_comparison_subplots(ax1[2], aris_plotting_sorted[2][1], "")
     ax2[2] = clustering_comparison_subplots(ax2[2], aris_plotting_sorted[2][2], "")
-    ax0[3] = clustering_comparison_subplots(ax0[3], aris_plotting_sorted[3][0], "cd($\mu$=1)")
+    ax0[3] = clustering_comparison_subplots(ax0[3], aris_plotting_sorted[3][0], "dc($\mu$=1)")
     ax1[3] = clustering_comparison_subplots(ax1[3], aris_plotting_sorted[3][1], "")
     ax2[3] = clustering_comparison_subplots(ax2[3], aris_plotting_sorted[3][2], "")
-    ax0[4] = clustering_comparison_subplots(ax0[4], aris_plotting_sorted[4][0], "cd($\mu$=5)")
+    ax0[4] = clustering_comparison_subplots(ax0[4], aris_plotting_sorted[4][0], "dc($\mu$=5)")
     ax1[4] = clustering_comparison_subplots(ax1[4], aris_plotting_sorted[4][1], "")
     ax2[4] = clustering_comparison_subplots(ax2[4], aris_plotting_sorted[4][2], "")
-    ax0[5] = clustering_comparison_subplots(ax0[5], aris_plotting_sorted[5][0], "cd($\mu$=10)")
+    ax0[5] = clustering_comparison_subplots(ax0[5], aris_plotting_sorted[5][0], "dc($\mu$=10)")
     ax1[5] = clustering_comparison_subplots(ax1[5], aris_plotting_sorted[5][1], "")
     ax2[5] = clustering_comparison_subplots(ax2[5], aris_plotting_sorted[5][2], "")
     
-    ax2[0].set_xticks(ticks=range(len(aris_plotting_sorted)-2), labels = ["b3", "d1", "d2", "d3"])
-    ax2[1].set_xticks(ticks=range(len(aris_plotting_sorted)-2), labels = ["b3", "d1", "d2", "d3"])
-    ax2[2].set_xticks(ticks=range(len(aris_plotting_sorted)-2), labels = ["b3", "d1", "d2", "d3"])
-    ax2[3].set_xticks(ticks=range(len(aris_plotting_sorted)-2), labels = ["b3", "d1", "d2", "d3"])
-    ax2[4].set_xticks(ticks=range(len(aris_plotting_sorted)-2), labels = ["b3", "d1", "d2", "d3"])
-    ax2[5].set_xticks(ticks=range(len(aris_plotting_sorted)-2), labels = ["b3", "d1", "d2", "d3"])
+    ax2[0].set_xticks(ticks=range(len(aris_plotting_sorted)-3), labels = ["d1", "d2", "d3"])
+    ax2[1].set_xticks(ticks=range(len(aris_plotting_sorted)-3), labels = ["d1", "d2", "d3"])
+    ax2[2].set_xticks(ticks=range(len(aris_plotting_sorted)-3), labels = ["d1", "d2", "d3"])
+    ax2[3].set_xticks(ticks=range(len(aris_plotting_sorted)-3), labels = ["d1", "d2", "d3"])
+    ax2[4].set_xticks(ticks=range(len(aris_plotting_sorted)-3), labels = ["d1", "d2", "d3"])
+    ax2[5].set_xticks(ticks=range(len(aris_plotting_sorted)-3), labels = ["d1", "d2", "d3"])
   
-    ax0[0].set_yticks(ticks=range(len(aris_plotting_sorted[0][0])), labels = ["DBSCAN", "kMeans", "Spectral", "DCF"])
-    ax1[0].set_yticks(ticks=range(len(aris_plotting_sorted[0][0])), labels = ["DBSCAN", "kMeans", "Spectral", "DCF"])
-    ax2[0].set_yticks(ticks=range(len(aris_plotting_sorted[0][0])), labels = ["DBSCAN", "kMeans", "Spectral", "DCF"])
+    ax0[0].set_yticks(ticks=range(len(aris_plotting_sorted[0][0])), labels = ["DBSCAN", "kMeans", "DCF"])
+    ax1[0].set_yticks(ticks=range(len(aris_plotting_sorted[0][0])), labels = ["DBSCAN", "kMeans", "DCF"])
+    ax2[0].set_yticks(ticks=range(len(aris_plotting_sorted[0][0])), labels = ["DBSCAN", "kMeans", "DCF"])
     
     ax0[5].set_ylabel("dim=2")
     ax0[5].yaxis.set_label_position("right")
@@ -350,10 +350,11 @@ def newcreateSynthPlot(filename):
 
 if __name__ == '__main__':    
     data_types = ['d1', 'd2', 'd3']
-    dims = [2]
-    reduction_types = ['mds1','mds5', 'mds10']
+    dims = [2,10,50]
+    reduction_types = ['pca','tsne','umap','mds1','mds5', 'mds10']
     alg_types = ['dbscan', 'kmeans', 'dcf']
-    newcreateSynthPlot("Result_txts/TESTaris_synthData_spectral.txt")
+    # newcreateSynthPlot("Result_txts/TESTaris_synthData_spectral.txt")
+    createSynthPlot("Result_txts/TESTaris_synthData_spectral.txt")
     # res = testClustering(data_types, dims, reduction_types, alg_types)   
     
     # print(res)
