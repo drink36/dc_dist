@@ -15,7 +15,7 @@ from experiment_utils.get_data import load_dsnesynth_data
 from readarff import *
 
 def compare_clusterings():
-    k_o = 3
+    k = 4
     min_pts = 3
     datasets = ['moons', 'circles', 'blobs']
     fig, axes = plt.subplots(len(datasets), 9)
@@ -33,21 +33,21 @@ def compare_clusterings():
         ),
         'blobs': make_blobs(n_samples=500, centers=6)
     }
-    arff_file_path = 'cure-t2-4k.arff'  # 替換成你的ARFF檔案路徑
+    arff_file_path = 'disk-5000n.arff'  # 替換成你的ARFF檔案路徑
     global arff_data
     arff_data = read_arff(arff_file_path)
 
-    # 4 to 6
-    for i in range(3):
+
+
+    for i, dataset in enumerate(datasets):
         points, labels = extract_xy(arff_data)
-        k=k_o+i
+
 
         root, dc_dists = make_tree(
             points,
             labels,
             min_points=min_pts,
         )
-        print("root")
         ###########################################
         # Calculate kcenter clustering on dc_dist #
         ###########################################
@@ -57,6 +57,7 @@ def compare_clusterings():
             k=k,
             min_points=min_pts,
         )
+
         # Calculate kcenter clustering without noise
         no_noise_labels, _, no_noise_epsilons = dc_clustering(
             root,
@@ -90,6 +91,7 @@ def compare_clusterings():
             n_clusters=k,
             type_="it"
         )
+
         euc_sc_labels = affinity_spectral(euc_dist_matrix, k)
 
         # Calculate spectral clustering
@@ -105,7 +107,8 @@ def compare_clusterings():
             n_clusters=k,
             type_="it"
         )
-        
+
+
         # Plot k-center clustering with noise
         non_noise = np.where(noise_labels>=0)
         noise = np.where(noise_labels<0)
@@ -135,7 +138,7 @@ def compare_clusterings():
         noise = np.where(dbscan.labels_<0)
         axes[i, 4].scatter(points[noise, 0], points[noise, 1], c='gray', s=10, alpha=0.5)
         axes[i, 4].scatter(points[non_noise, 0], points[non_noise, 1], c=dbscan.labels_[non_noise], s=10, alpha=0.8)
-        print("dbscan.labels_")
+
         # Plot dbscan with border points
         dbscan = DBSCAN(eps=noise_eps, min_pts=min_pts, cluster_type='standard')
         dbscan.fit(points)
@@ -242,11 +245,6 @@ def compare_clusterings():
     image_dir = 'scratch'
     os.makedirs(image_dir, exist_ok=True)
     plt.show()
-    plt.savefig(
-        os.path.join(image_dir, 'cluster_comparison1.pdf'),
-        bbox_inches='tight',
-        pad_inches=0.1
-    )
     # plt.savefig(
     #     os.path.join(image_dir, 'cluster_comparison.pdf'),
     #     bbox_inches='tight',
